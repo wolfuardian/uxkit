@@ -5,6 +5,10 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.3-alpha.1] - 2025-07-07
+### Changed
+- Update Sample scnee's demo. More clarity.
+
 ## [0.1.3-alpha] - 2025-07-07
 ### Added
 - Add LsSelect.cs
