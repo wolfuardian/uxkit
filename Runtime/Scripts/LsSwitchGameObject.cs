@@ -17,14 +17,17 @@ namespace Eos.UxKit
 
         public void Switch(int index)
         {
-            settings.gameObjects.ForEach(go => go.SetActive(false));
-            if (index >= 0 && index < settings.gameObjects.Count)
+            if (enabled)
             {
-                settings.gameObjects[index].SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("Index out of range: " + index);
+                settings.gameObjects.ForEach(go => go.SetActive(false));
+                if (index >= 0 && index < settings.gameObjects.Count)
+                {
+                    settings.gameObjects[index].SetActive(true);
+                }
+                else
+                {
+                    Debug.LogWarning("Index out of range: " + index);
+                }
             }
         }
 

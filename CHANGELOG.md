@@ -5,9 +5,12 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [0.1.3-alpha] - 2025-07-07 --Keep Going
+## [0.1.3-alpha] - 2025-07-07
 ### Added
 - Add LsSelect.cs
+
+### Changed
+- Change LsSwitchGameObject.cs method logic (can be effected by this.enable)
 
 ## [0.1.2-alpha] - 2025-07-07
 ### Added
