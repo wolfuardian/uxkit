@@ -1,7 +1,11 @@
 {
   "name": "com.ux.kit",
-  "version": "0.1.1-alpha.1",
+  "version": "0.1.2-alpha",
   "displayName": "UX Kit",
   "description": "A collection of UI components and utilities for Unity",
-  "unity": "2021.3"
+  "unity": "2021.3",
+  "author": {
+    "name": "Eos Wolfuardian",
+    "email": "wolfuardian@gmail.com"
+  }
 }
