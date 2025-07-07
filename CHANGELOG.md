@@ -5,6 +5,33 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.1.6-alpha.2] - 2025-07-09
+### Changed
+- Renaming _isSelected field to _isOn
+
+## [0.1.6-alpha.1] - 2025-07-09
+### Changed
+- Make _isSelected field serializable in LsSelect
+
+## [0.1.6-alpha] - 2025-07-09
+### Added
+- Add fundamental camera methods
+
+## [0.1.5-alpha] - 2025-07-08
+### Added
+- Add LsRectTrackMousePosition.cs
+- Add LsRectTrackScreenPoint.cs
+
+## [0.1.4-alpha.3] - 2025-07-08
+### Changed
+- Unify naming convention from m_ to _ across LsMaterialOverride
+
+## [0.1.4-alpha.2] - 2025-07-08
+### Fixed
+- Rollback to previous class names
+
+## [0.1.4-alpha.1-experimental] - 2025-07-08
+
 ## [0.1.4-alpha.1] - 2025-07-08
 ### Fixed
 - Fix namespace

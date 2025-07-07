@@ -5,15 +5,15 @@ namespace Eos.UxKit
 {
     public class LsSelect : MonoBehaviour
     {
+        [SerializeField] private bool _isOn = false;
+
         [SerializeField] private UnityEvent _onSelected = new UnityEvent();
         [SerializeField] private UnityEvent _onDeselected = new UnityEvent();
 
-        private bool _isSelected;
-
         public void Toggle()
         {
-            _isSelected = !_isSelected;
-            if (_isSelected)
+            _isOn = !_isOn;
+            if (_isOn)
             {
                 Selecting();
             }
@@ -25,13 +25,13 @@ namespace Eos.UxKit
 
         public void Selecting()
         {
-            _isSelected = true;
+            _isOn = true;
             _onSelected.Invoke();
         }
 
         public void Deselecting()
         {
-            _isSelected = false;
+            _isOn = false;
             _onDeselected.Invoke();
         }
     }

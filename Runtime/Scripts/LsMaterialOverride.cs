@@ -6,25 +6,41 @@ namespace Eos.UxKit
 {
     public class LsMaterialOverride : MonoBehaviour
     {
-        [SerializeField] private Material m_MaterialTarget;
+        [SerializeField] private Material _materialTarget;
 
-        [SerializeField] private Settings m_Settings = new Settings();
+        [SerializeField] private Settings _settings = new Settings();
 
         private readonly List<MeshRendererData> _meshRendererData = new List<MeshRendererData>();
         private readonly List<LineRendererData> _lineRendererData = new List<LineRendererData>();
-        private readonly List<ImageRendererData> _imageRendererData = new List<ImageRendererData>();
+        private readonly List<ImageRendererData> _imageData = new List<ImageRendererData>();
 
-        private bool hasAnyMeshRenderer => _meshRendererData != null && _meshRendererData.Count > 0;
-        private bool hasAnyLineRenderer => _lineRendererData != null && _lineRendererData.Count > 0;
-        private bool hasAnyImageRenderer => _imageRendererData != null && _imageRendererData.Count > 0;
-
-        public Settings settings => m_Settings;
+        private bool HasAnyMeshRenderer
+        {
+            get
+            {
+                return _meshRendererData != null && _meshRendererData.Count > 0;
+            }
+        }
+        private bool HasAnyLineRenderer
+        {
+            get
+            {
+                return _lineRendererData != null && _lineRendererData.Count > 0;
+            }
+        }
+        private bool HasAnyImage
+        {
+            get
+            {
+                return _imageData != null && _imageData.Count > 0;
+            }
+        }
 
         public void OverrideMaterials(bool isOverride)
         {
-            _meshRendererData.ForEach(data => data.m_MeshRenderer.sharedMaterials = isOverride ? data.m_MaterialsInstance : data.m_MaterialsDefault);
-            _lineRendererData.ForEach(data => data.m_LineRenderer.sharedMaterials = isOverride ? data.m_MaterialsInstance : data.m_MaterialsDefault);
-            _imageRendererData.ForEach(data => data.m_ImageRenderer.material = isOverride ? data.m_MaterialInstance : data.m_MaterialDefault);
+            _meshRendererData.ForEach(data => data._meshRenderer.sharedMaterials = isOverride ? data._materialsInstance : data._materialsDefault);
+            _lineRendererData.ForEach(data => data._lineRenderer.sharedMaterials = isOverride ? data._materialsInstance : data._materialsDefault);
+            _imageData.ForEach(data => data._image.material = isOverride ? data._materialInstance : data._materialDefault);
         }
 
         public void OverrideMaterials() => OverrideMaterials(isOverride: true);
@@ -34,44 +50,44 @@ namespace Eos.UxKit
         {
             _meshRendererData.Clear();
             _lineRendererData.Clear();
-            _imageRendererData.Clear();
+            _imageData.Clear();
 
-            var mrs = settings.overrideCustomRenderers ? settings.meshRenderers : GetComponentsInChildren<MeshRenderer>().ToList();
+            var mrs = _settings._overrideCustomRenderers ? _settings._meshRenderers : GetComponentsInChildren<MeshRenderer>().ToList();
             mrs.ForEach(meshRenderer =>
             {
                 _meshRendererData.Add(new MeshRendererData
                 {
-                    m_MeshRenderer = meshRenderer,
-                    m_MaterialsDefault = meshRenderer.sharedMaterials,
-                    m_MaterialsInstance = meshRenderer.sharedMaterials
+                    _meshRenderer = meshRenderer,
+                    _materialsDefault = meshRenderer.sharedMaterials,
+                    _materialsInstance = meshRenderer.sharedMaterials
                 });
             });
-            var mls = settings.overrideCustomRenderers ? settings.lineRenderers : GetComponentsInChildren<LineRenderer>().ToList();
+            var mls = _settings._overrideCustomRenderers ? _settings._lineRenderers : GetComponentsInChildren<LineRenderer>().ToList();
             mls.ForEach(lineRenderer =>
             {
                 _lineRendererData.Add(new LineRendererData
                 {
-                    m_LineRenderer = lineRenderer,
-                    m_MaterialsDefault = lineRenderer.sharedMaterials,
-                    m_MaterialsInstance = lineRenderer.sharedMaterials
+                    _lineRenderer = lineRenderer,
+                    _materialsDefault = lineRenderer.sharedMaterials,
+                    _materialsInstance = lineRenderer.sharedMaterials
                 });
             });
-            var imageRenderers = settings.overrideCustomRenderers ? settings.imageRenderers : GetComponentsInChildren<UnityEngine.UI.Image>().ToList();
+            var imageRenderers = _settings._overrideCustomRenderers ? _settings._images : GetComponentsInChildren<UnityEngine.UI.Image>().ToList();
             imageRenderers.ForEach(imageRenderer =>
             {
-                _imageRendererData.Add(new ImageRendererData
+                _imageData.Add(new ImageRendererData
                 {
-                    m_ImageRenderer = imageRenderer,
-                    m_MaterialDefault = imageRenderer.material,
-                    m_MaterialInstance = imageRenderer.material
+                    _image = imageRenderer,
+                    _materialDefault = imageRenderer.material,
+                    _materialInstance = imageRenderer.material
                 });
             });
 
-            _meshRendererData.ForEach(data => System.Array.Fill(data.m_MaterialsInstance, m_MaterialTarget));
-            _lineRendererData.ForEach(data => System.Array.Fill(data.m_MaterialsInstance, m_MaterialTarget));
-            _imageRendererData.ForEach(data => data.m_MaterialInstance = m_MaterialTarget);
+            _meshRendererData.ForEach(data => System.Array.Fill(data._materialsInstance, _materialTarget));
+            _lineRendererData.ForEach(data => System.Array.Fill(data._materialsInstance, _materialTarget));
+            _imageData.ForEach(data => data._materialInstance = _materialTarget);
 
-            if (!hasAnyMeshRenderer && !hasAnyLineRenderer && !hasAnyImageRenderer)
+            if (!HasAnyMeshRenderer && !HasAnyLineRenderer && !HasAnyImage)
             {
                 Debug.LogWarning("AfMaterialOverride: No MeshRenderer ,LineRenderer or Image found in children. Please add at least one to use material override functionality.", this);
             }
@@ -79,7 +95,7 @@ namespace Eos.UxKit
 
         private void Start()
         {
-            if (settings.overrideOnStart)
+            if (_settings._overrideOnStart)
             {
                 OverrideMaterials();
             }
@@ -88,35 +104,35 @@ namespace Eos.UxKit
         [System.Serializable]
         public class Settings
         {
-            public bool overrideOnStart = false;
-            public bool overrideCustomRenderers = false;
-            public List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
-            public List<LineRenderer> lineRenderers = new List<LineRenderer>();
-            public List<UnityEngine.UI.Image> imageRenderers = new List<UnityEngine.UI.Image>();
+            public bool _overrideOnStart = false;
+            public bool _overrideCustomRenderers = false;
+            public List<MeshRenderer> _meshRenderers = new List<MeshRenderer>();
+            public List<LineRenderer> _lineRenderers = new List<LineRenderer>();
+            public List<UnityEngine.UI.Image> _images = new List<UnityEngine.UI.Image>();
         }
 
         [System.Serializable]
         public class MeshRendererData
         {
-            public MeshRenderer m_MeshRenderer;
-            public Material[] m_MaterialsDefault;
-            public Material[] m_MaterialsInstance;
+            public MeshRenderer _meshRenderer;
+            public Material[] _materialsDefault;
+            public Material[] _materialsInstance;
         }
 
         [System.Serializable]
         public class LineRendererData
         {
-            public LineRenderer m_LineRenderer;
-            public Material[] m_MaterialsDefault;
-            public Material[] m_MaterialsInstance;
+            public LineRenderer _lineRenderer;
+            public Material[] _materialsDefault;
+            public Material[] _materialsInstance;
         }
 
         [System.Serializable]
         public class ImageRendererData
         {
-            public UnityEngine.UI.Image m_ImageRenderer;
-            public Material m_MaterialDefault;
-            public Material m_MaterialInstance;
+            public UnityEngine.UI.Image _image;
+            public Material _materialDefault;
+            public Material _materialInstance;
         }
     }
 }

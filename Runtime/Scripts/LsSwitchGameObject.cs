@@ -7,22 +7,14 @@ namespace Eos.UxKit
     {
         [SerializeField] private Settings _settings = new Settings();
 
-        public Settings settings
-        {
-            get
-            {
-                return _settings;
-            }
-        }
-
         public void Switch(int index)
         {
             if (enabled)
             {
-                settings.gameObjects.ForEach(go => go.SetActive(false));
-                if (index >= 0 && index < settings.gameObjects.Count)
+                _settings._gameObjects.ForEach(go => go.SetActive(false));
+                if (index >= 0 && index < _settings._gameObjects.Count)
                 {
-                    settings.gameObjects[index].SetActive(true);
+                    _settings._gameObjects[index].SetActive(true);
                 }
                 else
                 {
@@ -34,7 +26,7 @@ namespace Eos.UxKit
         [System.Serializable]
         public class Settings
         {
-            public List<GameObject> gameObjects = new List<GameObject>();
+            public List<GameObject> _gameObjects = new List<GameObject>();
         }
     }
 }
