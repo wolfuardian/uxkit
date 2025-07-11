@@ -23,6 +23,19 @@ namespace Eos.UxKit
             }
         }
 
+        public void Toggle(bool isOn)
+        {
+            _isOn = isOn;
+            if (_isOn)
+            {
+                Selecting();
+            }
+            else
+            {
+                Deselecting();
+            }
+        }
+
         public void Selecting()
         {
             _isOn = true;
